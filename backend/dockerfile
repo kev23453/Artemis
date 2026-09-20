@@ -1,0 +1,12 @@
+FROM node:slim AS build
+
+WORKDIR /app/backend
+
+COPY package.json package-lock.json ./
+
+#npm ci es más seguro para builds limpios
+RUN npm ci 
+
+COPY . .
+
+RUN npm run build

@@ -1,5 +1,5 @@
-const AccountNumber = require("./value-objects/AccountNumber");
-const BeneficiaryFullName = require("./value-objects/BeneficiaryFullName");
+const AccountNumber = require("../value-objects/AccountNumber");
+const BeneficiaryFullName = require("../value-objects/BeneficiaryFullName");
 
 class Beneficiary {
     #id;

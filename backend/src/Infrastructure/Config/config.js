@@ -16,6 +16,13 @@ const config = {
         host: process.env.CACHE_HOST || "localhost",
         port: Number(process.env.CACHE_PORT) || 6379
     },
+    email: {
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT,
+        from: process.env.SMTP_FROM,
+        user: process.env.SMTP_USER,
+        password: process.env.SMTP_PASS
+    },
     auth: {
         jwt: {
             secret: "",

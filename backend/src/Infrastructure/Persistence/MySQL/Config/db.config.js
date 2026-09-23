@@ -1,4 +1,4 @@
-const config = require("../../Config/config");
+const config = require("../../../Config/config");
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize(

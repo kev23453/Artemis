@@ -1,3 +1,5 @@
+const ErrorMiddleware = require("./Presentatiton/http/Middlewares/errorHandler");
+
 const express = require("express");
 
 const app = express();
@@ -11,6 +13,8 @@ app.get("/health", (req, res) => {
         }
     )
 })
+
+app.use(ErrorMiddleware);
 
 module.exports = app;
 

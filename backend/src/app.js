@@ -1,5 +1,6 @@
 const ErrorMiddleware = require("./Presentatiton/http/Middlewares/errorHandler");
 const HttpLogger = require("./Presentatiton/http/Middlewares/httpLogger");
+const UserRoutes = require("./Presentatiton/http/Routes/User.routes");
 
 const express = require("express");
 
@@ -9,14 +10,13 @@ app.use(express.json());
 
 app.use(HttpLogger);
 
-app.get("/health", (req, res) => {
-    res.json(
-        {
-            message: "Api is running"
-        }
-    )
+app.get("/health", (req, res) => {res.json
+    ({ message: "Api is running" })
 })
 
+app.use("/user", UserRoutes);
+
 app.use(ErrorMiddleware);
+
 module.exports = app;
 

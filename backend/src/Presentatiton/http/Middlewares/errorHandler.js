@@ -1,6 +1,6 @@
 const config = require("../../../Infrastructure/Config/config");
 
-const errorHandler = (req, res, next, err) => {
+const errorHandler = (err, req, res, next) => {
     
     const statusCode = err.statusCode || 500;
     

@@ -1,0 +1,9 @@
+const path = require("path");
+const base = path.resolve("src", "Infrastructure", "Persistence", "MySQL");
+
+module.exports = {
+  "config": path.join(base, "Config", "sequelize-cli.config.js"),
+  "models-path": path.join(base, "Models"),
+  "migrations-path": path.join(base, "Migrations"),
+  "seeders-path": path.join(base, "Seeders"),
+};

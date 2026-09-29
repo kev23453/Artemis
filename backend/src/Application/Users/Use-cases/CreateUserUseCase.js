@@ -3,8 +3,9 @@ const UserMapper = require("../Mappers/User.mapper");
 const UserResponseDto = require("../Dtos/UserResponseDto");
 
 class CreateUserUseCase {
-    constructor(UserRepository) {
+    constructor(UserRepository, passwordHasher) {
         this.UserRepository = UserRepository;
+        this.passwordHasher = passwordHasher;
     }
 
     async execute(dto) {
@@ -12,7 +13,10 @@ class CreateUserUseCase {
             throw new Error("Invalid CreateUserRequestDto");
         }   
         const user = UserMapper.toEntity(dto);
-        await this.UserRepository.save(user);
+
+        const hashedPassword = await this.passwordHasher.hash(user.password.getValue());
+
+        await this.UserRepository.save(user, hashedPassword);
         return user;
     }
 }

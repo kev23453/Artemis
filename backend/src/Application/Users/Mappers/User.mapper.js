@@ -18,7 +18,7 @@ class UserMapper {
             identityNumber: dto.identityNumber,
             email: new Email_VO(dto.email),
             password: new Password_VO(dto.password),
-            phoneNumber: dto.phoneNumber
+            numberPhone: dto.phoneNumber
         })
     }
 }

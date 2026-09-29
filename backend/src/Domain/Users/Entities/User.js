@@ -12,7 +12,7 @@ class User {
         email,
         emailConfirmed = false,
         password,
-        phoneNumber,
+        numberPhone,
         role_id
     })
     {
@@ -40,7 +40,7 @@ class User {
             throw new Error("Password must be an instance of password_VO")
         }
 
-        if(typeof(phoneNumber) !== "string" || phoneNumber.trim() === "") {
+        if(typeof(numberPhone) !== "string" || numberPhone.trim() === "") {
             throw new Error("Phone number must be an string");
         }
 
@@ -57,7 +57,7 @@ class User {
         this.email = email;
         this.emailConfirmed = emailConfirmed;
         this.password = password;
-        this.phoneNumber = phoneNumber.trim();
+        this.numberPhone = numberPhone.trim();
         this.role_id = role_id;
     }
 }

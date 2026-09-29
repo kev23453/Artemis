@@ -1,5 +1,5 @@
 class UserRepository {
-    async save(user) {
+    async save(user, hashedPassword) {
         throw new Error("Method not implemented");
     }
 

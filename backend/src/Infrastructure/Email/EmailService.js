@@ -25,16 +25,7 @@ class EmailService {
             return false;
         }
     }
-
-
-    sendExample(to) {
-        const subject = "artemisame esta";
-        const html = `
-            <div><span>8188991</span></div>
-        `;
-
-        return this.sendMail(to, subject, html);
-    }
+    
 }
 
 module.exports = EmailService;

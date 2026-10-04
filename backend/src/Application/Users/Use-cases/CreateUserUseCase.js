@@ -17,6 +17,7 @@ class CreateUserUseCase {
         const hashedPassword = await this.passwordHasher.hash(user.password.getValue());
 
         await this.UserRepository.save(user, hashedPassword);
+    
         return user;
     }
 }

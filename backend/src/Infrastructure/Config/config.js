@@ -2,6 +2,7 @@ const path = require("path");
 require("dotenv").config({path: path.resolve(__dirname, "../../../.env")});
 
 const config = {
+    api_version: process.env.API_VERSION,
     environment: process.env.ENVIRONMENT,
     server: { port: Number(process.env.PORT) || 7500 },
     persistence: { type: process.env.PERSISTENCE || "in-memory" },
@@ -28,6 +29,11 @@ const config = {
             secret: "",
             expiresIn: process.env.JWT_EXPIRES
         }
+    },
+    adminDefault: {
+        username: "admin",
+        email: process.env.DEFAULT_ADMIN_EMIAL,
+        password: process.env.DEFAULT_ADMIN_PASSWORD
     }
 }
 

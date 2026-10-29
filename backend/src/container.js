@@ -17,6 +17,9 @@
 
     // casos de uso
     const CreateUserUseCase = require("./Application/Users/Use-cases/CreateUserUseCase");
+    const LoginUserUseCase = require("./Application/Auth/Use-cases/LoginUserUseCase");
+    const RefreshSessionUseCase = require("./Application/Auth/Use-cases/RefreshSessionUseCase");
+    const LogoutUseCase = require("./Application/Auth/Use-cases/LogoutUseCase");
 
     // servicios
     const AccessTokenService = require("./Infrastructure/Security/AccessTokenService");
@@ -24,6 +27,7 @@
 
     // controladores
     const UserController = require("./Presentatiton/http/Controllers/User.controller");
+    const AuthController = require("./Presentatiton/http/Controllers/Auth.controller");
 
     // agregados de infraestructura
     const PasswordHasher = require("./Infrastructure/Security/BcryptPasswordHasher");
@@ -54,8 +58,6 @@ const credentialsEmail = {
         RefreshTokenModel: modelsConfig.refreshTokenModel,   // <- CAMBIO: objeto con el modelo ya creado
     });
 
-    // casos de uso
-    const createUserUseCase = new CreateUserUseCase(mysqlUserRepository, passwordHasher);
 
     // servicios
     const accessTokenService = new AccessTokenService({
@@ -66,8 +68,35 @@ const credentialsEmail = {
         ttlMs: config.auth.refreshToken.ttlMs,
     });
 
+
+    // casos de uso
+    const createUserUseCase = new CreateUserUseCase(mysqlUserRepository, passwordHasher);
+
+    const loginUserUseCase = new LoginUserUseCase({
+        userRepository: mysqlUserRepository,
+        passwordHasher,
+        accessTokenService,
+        refreshTokenService,
+        refreshTokenRepository
+    })
+
+    const refreshSessionUseCase = new RefreshSessionUseCase({
+        userRepository: mysqlUserRepository,
+        accessTokenService,
+        refreshTokenService,
+        refreshTokenRepository
+    })
+
+    const logoutUseCase = new LogoutUseCase( { refreshTokenService, refreshTokenRepository } );
+
     // controladores
     const userController = new UserController(createUserUseCase);
+
+    const authController = new AuthController({
+        loginUserUseCase,
+        refreshSessionUseCase,
+        logoutUseCase
+    });
 
 
 
@@ -76,6 +105,10 @@ const credentialsEmail = {
 module.exports = {
     userController,
     accessTokenService,
-    refreshTokenService,
-    refreshTokenRepository,
+    loginUserUseCase,
+    refreshSessionUseCase,
+    logoutUseCase,
+    authController
+    /* refreshTokenService,
+    refreshTokenRepository, */
 }

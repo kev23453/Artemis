@@ -44,6 +44,9 @@ const config = {
         username: "admin",
         email: process.env.DEFAULT_ADMIN_EMIAL,
         password: process.env.DEFAULT_ADMIN_PASSWORD
+    },
+    frontend: {
+        url: process.env.FRONTEND_URL
     }
 }
 

@@ -1,9 +1,10 @@
 const UserRepository = require("../../../../Domain/Users/Repositories/UserRepository")
 
 class MysqlUserRepository extends UserRepository {
-    constructor(MysqlClient, UserModel) {
+    constructor(MysqlClient, UserModel, RoleModel) {
         super();
         this.MysqlClient = MysqlClient;
+        this.RoleModel = RoleModel;
         this.UserModel = UserModel;
     }
 
@@ -36,11 +37,15 @@ class MysqlUserRepository extends UserRepository {
     }
 
     async findByEmail(email) {
-        throw new Error("Method not implemented");
+        return await this.UserModel.findOne({where: { email }});
+    }
+
+    async findByUsername(username) {
+        return await this.UserModel.findOne({where: { username } });
     }
 
     async findById(id) {
-        throw new Error("Method not implemented");
+        return await this.UserModel.findByPk(id, { include: [ { model: this.RoleModel, as: "role" } ] } );
     }
 }
 

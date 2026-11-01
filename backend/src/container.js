@@ -14,12 +14,14 @@
     const InMemoryUserRepository = require("./Infrastructure/Persistence/In-Memory/inMemoryUserRepository");
     const MysqlUserRepository = require("./Infrastructure/Persistence/MySQL/Repositories/MysqlUserRepository");
     const RefreshTokenRepository = require("./Infrastructure/Persistence/MySQL/Repositories/RefreshTokenRepository");
+    const BeneficiaryRepository = require("./Infrastructure/Persistence/MySQL/Repositories/BeneficiaryRepository");
 
     // casos de uso
     const CreateUserUseCase = require("./Application/Users/Use-cases/CreateUserUseCase");
     const LoginUserUseCase = require("./Application/Auth/Use-cases/LoginUserUseCase");
     const RefreshSessionUseCase = require("./Application/Auth/Use-cases/RefreshSessionUseCase");
     const LogoutUseCase = require("./Application/Auth/Use-cases/LogoutUseCase");
+    const CreateBeneficiaryUseCase = require("./Application/Beneficiary/Use-cases/CreateBeneficiaryUseCase");
 
     // servicios
     const AccessTokenService = require("./Infrastructure/Security/AccessTokenService");
@@ -28,6 +30,7 @@
     // controladores
     const UserController = require("./Presentatiton/http/Controllers/User.controller");
     const AuthController = require("./Presentatiton/http/Controllers/Auth.controller");
+    const BeneficiaryController = require("./Presentatiton/http/Controllers/BeneficiaryController");
 
     // agregados de infraestructura
     const PasswordHasher = require("./Infrastructure/Security/BcryptPasswordHasher");
@@ -45,6 +48,8 @@ const credentialsEmail = {
 }
 
 
+
+
 //3. instancias e inyecciones
 
     // agregados de infraestructura
@@ -52,11 +57,13 @@ const credentialsEmail = {
     const emailService = new EmailService(credentialsEmail);
 
     // repositorios
+    
     /* const inMemoryUserRepository = new InMemoryUserRepository(); */
     const mysqlUserRepository = new MysqlUserRepository(configDB, modelsConfig.userModel);
     const refreshTokenRepository = new RefreshTokenRepository({
         RefreshTokenModel: modelsConfig.refreshTokenModel,   // <- CAMBIO: objeto con el modelo ya creado
     });
+    const beneficiaryRepository = new BeneficiaryRepository(configDB, modelsConfig.BeneficiariesModel);
 
 
     // servicios
@@ -67,7 +74,6 @@ const credentialsEmail = {
     const refreshTokenService = new RefreshTokenService({
         ttlMs: config.auth.refreshToken.ttlMs,
     });
-
 
     // casos de uso
     const createUserUseCase = new CreateUserUseCase(mysqlUserRepository, passwordHasher);
@@ -89,6 +95,10 @@ const credentialsEmail = {
 
     const logoutUseCase = new LogoutUseCase( { refreshTokenService, refreshTokenRepository } );
 
+    const createBeneficiaryUseCase = new CreateBeneficiaryUseCase(beneficiaryRepository);
+
+
+
     // controladores
     const userController = new UserController(createUserUseCase);
 
@@ -97,6 +107,8 @@ const credentialsEmail = {
         refreshSessionUseCase,
         logoutUseCase
     });
+
+    const beneficiaryController = new BeneficiaryController(createBeneficiaryUseCase);
 
 
 
@@ -108,7 +120,8 @@ module.exports = {
     loginUserUseCase,
     refreshSessionUseCase,
     logoutUseCase,
-    authController
+    authController,
+    beneficiaryController
     /* refreshTokenService,
     refreshTokenRepository, */
 }

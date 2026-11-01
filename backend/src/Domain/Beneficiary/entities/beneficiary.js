@@ -41,3 +41,5 @@ class Beneficiary {
     get accountNumber() {return this.#accountNumber}
 }
 
+module.exports = Beneficiary;
+

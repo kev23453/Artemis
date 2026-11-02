@@ -1,4 +1,4 @@
-const AccountNumber = require("../value-objects/AccountNumber");
+const AccountNumber = require("../../Shared/AccountNumber");
 const BeneficiaryFullName = require("../value-objects/BeneficiaryFullName");
 
 class Beneficiary {

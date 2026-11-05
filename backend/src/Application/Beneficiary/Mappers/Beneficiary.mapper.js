@@ -1,5 +1,5 @@
 const Beneficiary = require("../../../Domain/Beneficiary/entities/beneficiary");
-const AccountNumber_VO = require("../../../Domain/Beneficiary/value-objects/AccountNumber");
+const AccountNumber_VO = require("../../../Domain/Shared/AccountNumber");
 const BeneficiaryFullName_VO = require("../../../Domain/Beneficiary/value-objects/BeneficiaryFullName");
 const CreateBeneficiaryRequestDto = require("../Dtos/CreateBeneficiaryRequestDto");
 const generateBeneficiaryId = require("../../../Shared/Utils/Beneficiary_id_generator");

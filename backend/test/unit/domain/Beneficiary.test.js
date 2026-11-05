@@ -1,5 +1,5 @@
 const Beneficiary = require("../../../src/Domain/Beneficiary/entities/beneficiary");
-const AccountNumber = require("../../../src/Domain/Beneficiary/value-objects/AccountNumber");
+const AccountNumber = require("../../../src/Domain/Shared/AccountNumber");
 const BeneficiaryFullName = require("../../../src/Domain/Beneficiary/value-objects/BeneficiaryFullName");
 const { BuildBeneficiaryData } = require("../../helpers/factories");
 

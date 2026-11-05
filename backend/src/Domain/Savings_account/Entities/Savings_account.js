@@ -45,22 +45,22 @@ class SavingsAccount {
             throw new Error("Id must be an boolean");
         }
 
-        if(typeof createdAt !== "object") {
+        if(createdAt && typeof createdAt !== "object") {
             throw new Error("CreatedAt must be an object");
         }
 
         if(typeof adminId !== "string") {
-            throw new Error("AdminId must be an integer");
+            throw new Error("AdminId must be an string");
         }
 
         this.#id = id;
         this.#accountNumber = accountNumber;
         this.#balance = balance;
-        this.#userId = userId,
-        this.#isPrincipal = isPrincipal,
-        this.#isActive = isActive,
-        this.#createdAt = createdAt,
-        this.#adminId = adminId
+        this.#userId = userId;
+        this.#isPrincipal = isPrincipal;
+        this.#isActive = isActive;
+        this.#createdAt = createdAt ? new Date(createdAt) : new Date();
+        this.#adminId = adminId;
 
     }
 
@@ -86,7 +86,7 @@ class SavingsAccount {
             throw new Error("Withdraw amount must be greater than 0")
         }
 
-        if(amount >= this.#balance) {
+        if(amount > this.#balance) {
             throw new Error("Insuficient funds for this withdraw");
         }
 
@@ -101,7 +101,7 @@ class SavingsAccount {
         if(this.#balance > 0) {
             throw new Error("Cannot deactivate an account with a remaining balance");
         }
-        this.isActive = false;
+        this.#isActive = false;
     }
 }
 

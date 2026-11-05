@@ -1,4 +1,4 @@
-const AccountNumber = require("../../../../src/Domain/Beneficiary/value-objects/AccountNumber");
+const AccountNumber = require("../../../../src/Domain/Shared/AccountNumber");
 
 describe("AccountNumber", () => {
     it("se crea con un string de exactamente 9 digitos", () => {

@@ -1,7 +1,7 @@
 const BeneficiaryMapper = require("../../../../src/Application/Beneficiary/Mappers/Beneficiary.mapper");
 const CreateBeneficiaryRequestDto = require("../../../../src/Application/Beneficiary/Dtos/CreateBeneficiaryRequestDto");
 const Beneficiary = require("../../../../src/Domain/Beneficiary/entities/beneficiary");
-const AccountNumber = require("../../../../src/Domain/Beneficiary/value-objects/AccountNumber");
+const AccountNumber = require("../../../../src/Domain/Shared/AccountNumber");
 const BeneficiaryFullName = require("../../../../src/Domain/Beneficiary/value-objects/BeneficiaryFullName");
 const { BuildCreateBeneficiaryData } = require("../../../helpers/factories");
 

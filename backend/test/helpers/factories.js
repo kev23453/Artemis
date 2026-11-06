@@ -11,6 +11,7 @@ const BuildBeneficiaryData = (overrides = {}) => ({
     ...overrides
 });
 
+// using for DTOS
 const BuildBeneficiaryEntity = (overrides = {}) => new Beneficiary(BuildBeneficiaryData(overrides));
 
 const BuildCreateBeneficiaryData = (overrides = {}) => ({

@@ -10,6 +10,9 @@ const Savings_account = sequelize.define("savings_account", {
     isActive: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true },
     createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: new Date() },
     adminId: { type: DataTypes.STRING }
+}, {
+    tableName: "savings_account",
+    timestamps: false
 })
 
 module.exports = Savings_account;

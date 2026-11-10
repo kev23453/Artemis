@@ -12,7 +12,7 @@ class CreateSavingsAccountResponseDto {
         this.userId = entity.userId;
         this.isPrincipal = entity.isPrincipal;
         this.isActive = entity.isActive;
-        this.updatedAt = entity.updatedAt;
+        this.createdAt = entity.createdAt;
         this.adminId = entity.adminId;
 
         Object.freeze(this);

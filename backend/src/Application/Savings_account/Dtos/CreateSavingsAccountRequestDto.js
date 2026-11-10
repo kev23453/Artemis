@@ -4,7 +4,7 @@ const CreateSavingsAccountSchema = require("../Validators/CreateSavingsAccountSc
 class CreateSavingsAccountRequestDto {
     constructor(data) {
         const result = CreateSavingsAccountSchema.safeParse(data);
-        if(!result) {
+        if(!result.success) {
             throw new ValidationError("Invalid Savings account data", result.error.issues);
         }
         const validData = result.data;

@@ -15,6 +15,7 @@
     const MysqlUserRepository = require("./Infrastructure/Persistence/MySQL/Repositories/MysqlUserRepository");
     const RefreshTokenRepository = require("./Infrastructure/Persistence/MySQL/Repositories/RefreshTokenRepository");
     const BeneficiaryRepository = require("./Infrastructure/Persistence/MySQL/Repositories/BeneficiaryRepository");
+    const SavingAccountRepository = require("./Infrastructure/Persistence/MySQL/Repositories/SavingAccountRepository");
 
     // casos de uso
     const CreateUserUseCase = require("./Application/Users/Use-cases/CreateUserUseCase");
@@ -22,6 +23,7 @@
     const RefreshSessionUseCase = require("./Application/Auth/Use-cases/RefreshSessionUseCase");
     const LogoutUseCase = require("./Application/Auth/Use-cases/LogoutUseCase");
     const CreateBeneficiaryUseCase = require("./Application/Beneficiary/Use-cases/CreateBeneficiaryUseCase");
+    const CreateSavingAccountUseCase = require("./Application/Savings_account/Use-cases/CreateSavingsAccountUseCase");
 
     // servicios
     const AccessTokenService = require("./Infrastructure/Security/AccessTokenService");
@@ -31,6 +33,7 @@
     const UserController = require("./Presentatiton/http/Controllers/User.controller");
     const AuthController = require("./Presentatiton/http/Controllers/Auth.controller");
     const BeneficiaryController = require("./Presentatiton/http/Controllers/BeneficiaryController");
+    const SavingAccountController = require("./Presentatiton/http/Controllers/SavingAccount.controller");
 
     // agregados de infraestructura
     const PasswordHasher = require("./Infrastructure/Security/BcryptPasswordHasher");
@@ -64,6 +67,7 @@ const credentialsEmail = {
         RefreshTokenModel: modelsConfig.refreshTokenModel,   // <- CAMBIO: objeto con el modelo ya creado
     });
     const beneficiaryRepository = new BeneficiaryRepository(configDB, modelsConfig.BeneficiariesModel);
+    const savingAccountRepository = new SavingAccountRepository(configDB, modelsConfig.SavingsAccount);
 
 
     // servicios
@@ -97,6 +101,8 @@ const credentialsEmail = {
 
     const createBeneficiaryUseCase = new CreateBeneficiaryUseCase(beneficiaryRepository);
 
+    const createSavingAccountUseCase = new CreateSavingAccountUseCase(savingAccountRepository);
+
 
 
     // controladores
@@ -109,7 +115,10 @@ const credentialsEmail = {
     });
 
     const beneficiaryController = new BeneficiaryController(createBeneficiaryUseCase);
-
+    
+    const savingAccountController = new SavingAccountController(
+        createSavingAccountUseCase
+    );
 
 
 //4. exportaciones
@@ -121,7 +130,8 @@ module.exports = {
     refreshSessionUseCase,
     logoutUseCase,
     authController,
-    beneficiaryController
+    beneficiaryController,
+    savingAccountController
     /* refreshTokenService,
     refreshTokenRepository, */
 }

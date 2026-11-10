@@ -7,13 +7,13 @@ class CreateSavingsAccountUseCase {
         this.SavingsAccountRepository = SavingsAccountRepository;
     }
 
-    async execute(requestDto, id) {
-        if(!(requestDto instanceof CreateSavingsAccountRequestDto)) {
+    async execute(dto) {
+        if(!(dto instanceof CreateSavingsAccountRequestDto)) {
             throw new Error("Invalid CreateSavingsAccountRequestDto");
         }
-        const savingAccount = CreateSavingsAcoountMapper.toEntity(requestDto, id);
+        const savingAccount = CreateSavingsAcoountMapper.toEntity(dto);
 
-        await this.SavingsAccountRepository.create(savingAccount);
+        await this.SavingsAccountRepository.save(savingAccount);
 
         return new CreateSavingsAccountResponseDto(savingAccount);
     }

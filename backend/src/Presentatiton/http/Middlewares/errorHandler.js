@@ -1,9 +1,9 @@
-const config = require("../../../Infrastructure/Config/config");
+const logger = require("../../../Infrastructure/Logger/logger");
 
 const errorHandler = (err, req, res, next) => {
-    
+
     const statusCode = err.statusCode || 500;
-    
+
     const response = {
         success: false,
         error: {
@@ -16,11 +16,12 @@ const errorHandler = (err, req, res, next) => {
         response.error.details = err.details;
     }
 
-    if(config.environment !== "production") {
-        response.error.stack = err.stack;
-    }
-
-    console.log(err) // cambiar por logger 
+    logger.error(err.stack || err.message, {
+        method: req.method,
+        url: req.originalUrl,
+        statusCode,
+        code: response.error.code
+    });
 
     res.status(statusCode).json(response);
 

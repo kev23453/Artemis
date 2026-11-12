@@ -10,6 +10,10 @@ class SavingsAccountRepository {
     async findByUserId(userId) {
          throw new Error("Method findByUserId(userId) must be implemented");
     }
+
+    async findByAccountNumber(accountNumber) {
+        throw new Error("Method findByAccountNumber(accountNumber) must be implemented");
+    }
 }
 
 module.exports = SavingsAccountRepository;

@@ -1,10 +1,10 @@
 const ISavingAccountRepository = require("../../../../Domain/Savings_account/Repositories/SavingsAccountRepository");
-const { ran } = require("crypto");
-
+/* const { SavingsAccount } = require("../Models") // para pruebas
+ */
 class SavingAccountRepository extends ISavingAccountRepository {
     constructor(mysqlClient, savingAccountModel) {
         super();
-        this.SavingAccountModel = savingAccountModel;
+        this.savingAccountModel = savingAccountModel;
         this.mysqlClient = mysqlClient;
     }
 
@@ -20,15 +20,20 @@ class SavingAccountRepository extends ISavingAccountRepository {
             adminId: SavingsAccount.adminId
         }
 
-        return await this.SavingAccountModel.create(data, data.id);
+        return await this.savingAccountModel.create(data, data.id);
     }
 
     async findById(id) {
-        throw new Error("Method findById(id) must be implemented");
+        return await this.savingAccountModel.findByPk(id);
     }
 
     async findByUserId(userId) {
-         throw new Error("Method findByUserId(userId) must be implemented");
+        return await this.savingAccountModel.findAll({where: { userId } })
+    }
+
+    async findByAccountNumber(accountNumber) {
+        return await this.savingAccountModel.findAll({where: { accountNumber } })
+
     }
 
 }

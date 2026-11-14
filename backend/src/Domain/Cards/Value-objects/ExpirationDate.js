@@ -21,6 +21,10 @@ class ExpirationDate {
     }
 
     static fromDate(date) {
+        if(date === null || date === undefined) {
+            throw new Error("Expiration date is invalid");
+        }
+
         const parsedDate = date instanceof Date ? date : new Date(date);
         if(Number.isNaN(parsedDate.getTime())) {
             throw new Error("Expiration date is invalid");

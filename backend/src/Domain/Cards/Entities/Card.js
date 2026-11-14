@@ -1,9 +1,14 @@
+const CardNumberVO = require("../Value-objects/CardNumber");
+const CvcVO = require("../Value-objects/Cvc");
+const ExpirationDateVO = require("../Value-objects/ExpirationDate");
+
 class Card {
     #id;
     #identifierNumber;
     #creditLimit;
     #expireDate;
     #cvcCode;
+    #amountDebt
     #isActive;
     #userId;
     #adminId;
@@ -16,6 +21,7 @@ class Card {
         creditLimit,
         expireDate,
         cvcCode,
+        amountDebt,
         isActive = true,
         userId,
         adminId,
@@ -27,21 +33,24 @@ class Card {
             throw new Error("Id must be a non empty string");
         }
 
-        if(typeof identifierNumber !== "number" || !Number.isInteger(identifierNumber) || identifierNumber <= 0) {
-            throw new Error("Card identifier number must be a positive integer");
+        if(!(identifierNumber instanceof CardNumberVO)) {
+            throw new Error("Card identifier number must be an instance of CardNumberVO");
         }
 
         if(typeof creditLimit !== "number" || !Number.isFinite(creditLimit) || creditLimit < 0) {
             throw new Error("Credit limit must be a positive number");
         }
 
-        const parsedExpireDate = expireDate instanceof Date ? expireDate : new Date(expireDate);
-        if(expireDate === undefined || expireDate === null || Number.isNaN(parsedExpireDate.getTime())) {
-            throw new Error("Expire date must be a valid date");
+        if(!(expireDate instanceof ExpirationDateVO)) {
+            throw new Error("Expire date must be an instance of ExpirationDateVO");
         }
 
-        if(typeof cvcCode !== "string" || !/^\d{3,4}$/.test(cvcCode)) {
-            throw new Error("Cvc code must be a string of 3 or 4 digits");
+        if(!(cvcCode instanceof CvcVO)) {
+            throw new Error("Cvc code must be an instance of CvcVO");
+        }
+
+        if(typeof(amountDebt) !== "number" || !Number.isFinite(amountDebt) || amountDebt < 0) {
+            throw new Error("amountDebt must be a positive number");
         }
 
         if(typeof isActive !== "boolean") {
@@ -59,8 +68,9 @@ class Card {
         this.#id = id;
         this.#identifierNumber = identifierNumber;
         this.#creditLimit = creditLimit;
-        this.#expireDate = parsedExpireDate;
+        this.#expireDate = expireDate;
         this.#cvcCode = cvcCode;
+        this.#amountDebt = amountDebt;
         this.#isActive = isActive;
         this.#userId = userId;
         this.#adminId = adminId;
@@ -73,6 +83,7 @@ class Card {
     get creditLimit() { return this.#creditLimit }
     get expireDate() { return this.#expireDate }
     get cvcCode() { return this.#cvcCode }
+    get amountDebt() { return this.#amountDebt }
     get isActive() { return this.#isActive }
     get userId() { return this.#userId }
     get adminId() { return this.#adminId }

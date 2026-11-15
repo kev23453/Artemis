@@ -1,7 +1,7 @@
 const Card = require("../../../Domain/Cards/Entities/Card");
 
 class CreateCardResponseDto {
-    constructor(entity = new Card()) {
+    constructor(entity) {
         if(!(entity instanceof Card)) {
             throw new Error("Entity must be an instance of Card");
         }
@@ -16,3 +16,4 @@ class CreateCardResponseDto {
         this.createdAt = entity.createdAt;
     }
 }
+module.exports = CreateCardResponseDto;

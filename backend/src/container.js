@@ -12,10 +12,12 @@
 
     // repositorios
     const InMemoryUserRepository = require("./Infrastructure/Persistence/In-Memory/inMemoryUserRepository");
+    
     const MysqlUserRepository = require("./Infrastructure/Persistence/MySQL/Repositories/MysqlUserRepository");
     const RefreshTokenRepository = require("./Infrastructure/Persistence/MySQL/Repositories/RefreshTokenRepository");
     const BeneficiaryRepository = require("./Infrastructure/Persistence/MySQL/Repositories/BeneficiaryRepository");
     const SavingAccountRepository = require("./Infrastructure/Persistence/MySQL/Repositories/SavingAccountRepository");
+    const CardRepository = require("./Infrastructure/Persistence/MySQL/Repositories/CardRepository");
 
     // casos de uso
     const CreateUserUseCase = require("./Application/Users/Use-cases/CreateUserUseCase");
@@ -24,6 +26,7 @@
     const LogoutUseCase = require("./Application/Auth/Use-cases/LogoutUseCase");
     const CreateBeneficiaryUseCase = require("./Application/Beneficiary/Use-cases/CreateBeneficiaryUseCase");
     const CreateSavingAccountUseCase = require("./Application/Savings_account/Use-cases/CreateSavingsAccountUseCase");
+    const CreateCardUseCase = require("./Application/Cards/Use-cases/CreateCardUseCase")
 
     // servicios
     const AccessTokenService = require("./Infrastructure/Security/AccessTokenService");
@@ -34,6 +37,7 @@
     const AuthController = require("./Presentatiton/http/Controllers/Auth.controller");
     const BeneficiaryController = require("./Presentatiton/http/Controllers/BeneficiaryController");
     const SavingAccountController = require("./Presentatiton/http/Controllers/SavingAccount.controller");
+    const CardController = require("./Presentatiton/http/Controllers/Card.controller");
 
     // agregados de infraestructura
     const PasswordHasher = require("./Infrastructure/Security/BcryptPasswordHasher");
@@ -68,7 +72,7 @@ const credentialsEmail = {
     });
     const beneficiaryRepository = new BeneficiaryRepository(configDB, modelsConfig.BeneficiariesModel);
     const savingAccountRepository = new SavingAccountRepository(configDB, modelsConfig.SavingsAccount);
-
+    const cardRepository = new CardRepository(configDB, modelsConfig.CardModel);
 
     // servicios
     const accessTokenService = new AccessTokenService({
@@ -103,6 +107,7 @@ const credentialsEmail = {
 
     const createSavingAccountUseCase = new CreateSavingAccountUseCase(savingAccountRepository);
 
+    const createCardUseCase = new CreateCardUseCase(cardRepository);
 
 
     // controladores
@@ -120,6 +125,8 @@ const credentialsEmail = {
         createSavingAccountUseCase
     );
 
+    const cardController = new CardController(createCardUseCase);
+
 
 //4. exportaciones
 
@@ -131,7 +138,8 @@ module.exports = {
     logoutUseCase,
     authController,
     beneficiaryController,
-    savingAccountController
+    savingAccountController,
+    cardController
     /* refreshTokenService,
     refreshTokenRepository, */
 }

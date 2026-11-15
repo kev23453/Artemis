@@ -9,6 +9,7 @@ class CreateCardRequestDto {
         }
 
         this.creditLimit = data.creditLimit
+        this.amountDebt = data.amountDebt ?? 0
         this.isActive = data.isActive
         this.userId = data.userId
         this.adminId = data.adminId

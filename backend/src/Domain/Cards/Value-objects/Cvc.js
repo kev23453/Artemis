@@ -46,5 +46,4 @@ class Cvc {
         return otherCvc instanceof Cvc && this.#value === otherCvc.value;
     }
 }
-
 module.exports = Cvc;

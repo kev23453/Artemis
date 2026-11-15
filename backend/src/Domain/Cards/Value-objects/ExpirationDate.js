@@ -1,3 +1,5 @@
+const crypto = require("crypto");
+
 class ExpirationDate {
     #month;
     #year;
@@ -18,6 +20,17 @@ class ExpirationDate {
         this.#year = parsedYear < 100 ? 2000 + parsedYear : parsedYear;
 
         Object.freeze(this);
+    }
+
+    static generate(now = new Date()) {
+        // randomInt excluye el límite superior, por eso 61: devuelve de 36 a 60 meses
+        const monthsToAdd = crypto.randomInt(36, 61);
+
+        const totalMonths = now.getUTCMonth() + monthsToAdd;
+        const year = now.getUTCFullYear() + Math.floor(totalMonths / 12);
+        const month = (totalMonths % 12) + 1;
+
+        return new ExpirationDate(month, year);
     }
 
     static fromDate(date) {

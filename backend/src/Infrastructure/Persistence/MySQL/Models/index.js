@@ -4,6 +4,7 @@ const refreshTokenModel = require("./RefreshToken.model");
 const BeneficiariesModel = require("./Beneficiaries.model");
 const SavingsAccount = require("./Savings_account.model");
 const CardModel = require("./Card.model");
+const LoanModel = require("./Loan.model");
 
 roleModel.hasMany(userModel, { foreignKey: "roleId", as: "user" })
 userModel.belongsTo(roleModel, { foreignKey: "roleId", as: "role" })
@@ -26,11 +27,18 @@ CardModel.belongsTo(userModel, { foreignKey: "userId", as: "user" })
 userModel.hasMany(CardModel, { foreignKey: "adminId", as: "adminCard" })
 CardModel.belongsTo(userModel, { foreignKey: "adminId", as: "admin" })
 
+userModel.hasMany(LoanModel, { foreignKey: "userId", as: "loan" })
+LoanModel.belongsTo(userModel, { foreignKey: "userId", as: "user" })
+
+userModel.hasMany(LoanModel, { foreignKey: "adminId", as: "adminLoan" })
+LoanModel.belongsTo(userModel, { foreignKey: "adminId", as: "admin" })
+
 module.exports = {
     userModel,
     roleModel,
     refreshTokenModel,
     BeneficiariesModel,
     SavingsAccount,
-    CardModel
+    CardModel,
+    LoanModel
 }

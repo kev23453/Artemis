@@ -8,7 +8,22 @@ class LoanRepository extends ILoanRepository{
     }
 
     async save(loan) {
-        throw new Error("Method save not implemented");
+            const data = {
+                id: loan.id,
+                identifierNumber: loan.identifierNumber.value,
+                loanAmount: loan.loanAmount.toString(),
+                termMonths: loan.termMonths.value,
+                interestRate: loan.interestRate.toString(),
+                outstandingAmount: loan.loanAmount.toString(),
+                isActive: loan.isActive,
+                paymentStatus: loan.paymentStatus.value,
+                userId: loan.userId,
+                adminId: loan.adminId,
+                monthlyPayment: loan.monthlyPayment.toString()
+            }
+
+            await this.loanModel.create(data);
+
     }
 
     async findByIdentifierNumber(identifierNumber) {

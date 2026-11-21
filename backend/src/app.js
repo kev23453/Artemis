@@ -6,6 +6,7 @@ const AuthRoutes = require("./Presentatiton/http/Routes/Auth.routes");
 const BeneficiaryRoutes = require("./Presentatiton/http/Routes/Beneficiary.routes");
 const SavingAccountRoutes = require("./Presentatiton/http/Routes/SavingAccount.routes");
 const cardRoutes = require("./Presentatiton/http/Routes/Card.routes");
+const loanRoutes = require("./Presentatiton/http/Routes/Loan.routes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const express = require("express");
@@ -30,6 +31,7 @@ app.use(`/api/${config.api_version}/auth`, AuthRoutes);
 app.use(`/api/${config.api_version}/beneficiary`, BeneficiaryRoutes);
 app.use(`/api/${config.api_version}/saving_account`, SavingAccountRoutes);
 app.use(`/api/${config.api_version}/card`, cardRoutes);
+app.use(`/api/${config.api_version}/loan`, loanRoutes);
 
 app.use(ErrorMiddleware);
 

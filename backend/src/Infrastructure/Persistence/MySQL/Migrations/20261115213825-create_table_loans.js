@@ -8,13 +8,15 @@ module.exports = {
       identifierNumber: { type: Sequelize.STRING, unique: true, allowNull: false },
       loanAmount: { type: Sequelize.DECIMAL(10, 2), allowNull: false } ,
       termMonths: { type: Sequelize.FLOAT, allowNull: false } ,
-      interesRate: { type: Sequelize.DECIMAL(10, 2), allowNull: false } ,
-      OutstandingAmount: { type: Sequelize.DECIMAL(10, 2), allowNull: false } ,
+      interestRate: { type: Sequelize.DECIMAL(10, 2), allowNull: false } ,
+      outstandingAmount: { type: Sequelize.DECIMAL(10, 2), allowNull: false } ,
       isActive: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: true } ,
-      PaymentStatus: { type: Sequelize.ENUM('al Dia', 'Retrasado') } ,
+      paymentStatus: { type: Sequelize.ENUM('al Dia', 'Retrasado') } ,
       userId: { type: Sequelize.STRING, allowNull: false, references: { model: "user", key: "id" } } ,
       adminId: { type: Sequelize.STRING, allowNull: false, references: { model: "user", key: "id" } },
-      MonthlyPayment: { type: Sequelize.DECIMAL(10, 2), allowNull: false } ,
+      monthlyPayment: { type: Sequelize.DECIMAL(10, 2), allowNull: false },
+      createdAt: { type: Sequelize.DATE, allowNull: false, defaultValue: new Date() },
+      updatedAt: { type: Sequelize.DATE, allowNull: false, defaultValue: new Date() }
     })
   },
 

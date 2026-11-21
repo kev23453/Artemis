@@ -18,6 +18,7 @@
     const BeneficiaryRepository = require("./Infrastructure/Persistence/MySQL/Repositories/BeneficiaryRepository");
     const SavingAccountRepository = require("./Infrastructure/Persistence/MySQL/Repositories/SavingAccountRepository");
     const CardRepository = require("./Infrastructure/Persistence/MySQL/Repositories/CardRepository");
+    const LoanRepository = require("./Infrastructure/Persistence/MySQL/Repositories/LoanRepository");
 
     // casos de uso
     const CreateUserUseCase = require("./Application/Users/Use-cases/CreateUserUseCase");
@@ -27,6 +28,7 @@
     const CreateBeneficiaryUseCase = require("./Application/Beneficiary/Use-cases/CreateBeneficiaryUseCase");
     const CreateSavingAccountUseCase = require("./Application/Savings_account/Use-cases/CreateSavingsAccountUseCase");
     const CreateCardUseCase = require("./Application/Cards/Use-cases/CreateCardUseCase")
+    const CreateLoanUseCase = require("./Application/Loan/Use-cases/CreateLoanUseCase")
 
     // servicios
     const AccessTokenService = require("./Infrastructure/Security/AccessTokenService");
@@ -38,6 +40,7 @@
     const BeneficiaryController = require("./Presentatiton/http/Controllers/BeneficiaryController");
     const SavingAccountController = require("./Presentatiton/http/Controllers/SavingAccount.controller");
     const CardController = require("./Presentatiton/http/Controllers/Card.controller");
+    const LoanController = require("./Presentatiton/http/Controllers/Loan.controller");
 
     // agregados de infraestructura
     const PasswordHasher = require("./Infrastructure/Security/BcryptPasswordHasher");
@@ -73,6 +76,8 @@ const credentialsEmail = {
     const beneficiaryRepository = new BeneficiaryRepository(configDB, modelsConfig.BeneficiariesModel);
     const savingAccountRepository = new SavingAccountRepository(configDB, modelsConfig.SavingsAccount);
     const cardRepository = new CardRepository(configDB, modelsConfig.CardModel);
+    const loanRepository = new LoanRepository(configDB, modelsConfig.LoanModel);
+
 
     // servicios
     const accessTokenService = new AccessTokenService({
@@ -109,6 +114,8 @@ const credentialsEmail = {
 
     const createCardUseCase = new CreateCardUseCase(cardRepository);
 
+    const createLoanUseCase = new CreateLoanUseCase(loanRepository);
+
 
     // controladores
     const userController = new UserController(createUserUseCase);
@@ -126,6 +133,7 @@ const credentialsEmail = {
     );
 
     const cardController = new CardController(createCardUseCase);
+    const loanController = new LoanController(createLoanUseCase);
 
 
 //4. exportaciones
@@ -139,7 +147,8 @@ module.exports = {
     authController,
     beneficiaryController,
     savingAccountController,
-    cardController
+    cardController,
+    loanController
     /* refreshTokenService,
     refreshTokenRepository, */
 }

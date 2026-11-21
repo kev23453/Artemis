@@ -1,5 +1,5 @@
-const AL_DIA = "al Dia";
-const RETRASADO = "Retrasado";
+const AL_DIA = "al dia";
+const RETRASADO = "retrasado";
 
 class PaymentStatus {
     #value;
@@ -9,6 +9,7 @@ class PaymentStatus {
             throw new Error("Payment status must be al Dia or Retrasado");
         }
 
+        
         this.#value = value;
         Object.freeze(this);
     }
